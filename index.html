@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestock Health Advisor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Livestock Health Advisor</h1>
+    <div class="container">
+        <h2>Check Animal Health</h2>
+        <label for="symptoms">Enter Symptoms:</label>
+        <input type="text" id="symptoms" placeholder="e.g., Fever, Loss of Appetite">
+        <button onclick="suggestRemedy()">Get Remedy</button>
+        <h3>Suggested Remedy:</h3>
+        <p id="remedy"></p>
+    </div>
+    <script>
+        function suggestRemedy() {
+            let symptoms = document.getElementById("symptoms").value.toLowerCase();
+            let remedy = "No matching remedy found. Consult a vet.";
+            
+            if (symptoms.includes("fever")) {
+                if (symptoms.includes("skin nodules")) {
+                    remedy = "Lumpy Skin Disease: Isolate animal, apply antiseptic, administer antibiotics, and vaccinate healthy animals.";
+                } else if (symptoms.includes("mouth ulcers") || symptoms.includes("drooling")) {
+                    remedy = "Foot-and-Mouth Disease: Isolate infected animal, provide soft food, apply saline solution, and report severe cases.";
+                } else if (symptoms.includes("swollen udder") || symptoms.includes("pus in milk")) {
+                    remedy = "Mastitis: Milk out infected udder, apply warm compresses, use prescribed antibiotics, and maintain udder hygiene.";
+                } else if (symptoms.includes("persistent coughing") || symptoms.includes("weight loss")) {
+                    remedy = "Bovine Tuberculosis: Isolate & test animal, avoid consuming meat/milk, and report to a vet immediately.";
+                } else {
+                    remedy = "General Fever: Provide clean water, balanced diet, and consult a vet if persists.";
+                }
+            } else if (symptoms.includes("sudden death") && symptoms.includes("blood oozing")) {
+                remedy = "Anthrax: Do NOT open carcass, report immediately, and burn & bury carcass safely.";
+            } else if (symptoms.includes("no symptoms")) {
+                remedy = "Preventive Care: Follow vaccination schedules, provide proper nutrition, ensure biosecurity measures, and maintain hygiene.";
+            }
+            
+            document.getElementById("remedy").innerText = remedy;
+        }
+    </script>
+</body>
+</html>
