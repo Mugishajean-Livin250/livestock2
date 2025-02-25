@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestock Health Advisor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Livestock Health Advisor</h1>
+    <div class="container">
+        <h2>Check Animal Health</h2>
+        <label for="symptoms">Enter Symptoms:</label>
+        <input type="text" id="symptoms" placeholder="e.g., Fever, Loss of Appetite">
+        <button onclick="suggestRemedy()">Get Remedy</button>
+        <h3>Suggested Remedy:</h3>
+        <p id="remedy"></p>
+    </div>
+
+    <script>
+        function suggestRemedy() {
+            let symptoms = document.getElementById("symptoms").value;
+
+            if (!symptoms) {
+                document.getElementById("remedy").innerText = "Please enter symptoms.";
+                return;
+            }
+
+            fetch(`/get_remedy?symptoms=${encodeURIComponent(symptoms)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.remedy) {
+                    document.getElementById("remedy").innerText = data.remedy;
+                } else {
+                    document.getElementById("remedy").innerText = "No matching remedy found. Consult a vet.";
+                }
+            })
+            .catch(error => {
+                document.getElementById("remedy").innerText = "Error fetching data. Please try again.";
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</body>
+</html>
